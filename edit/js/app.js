@@ -122,7 +122,7 @@ function createWidget() {
 
       
       </div>
-      <div class="ww-footer"><a class="ww-button ww-button-close">OK</a></div>
+      <div class="ww-footer"><a class="ww-button ww-button-close" id="save">Save</a></div>
     </div>`;
 
     document.querySelector('.ww-close').addEventListener('click', function() {
@@ -165,6 +165,28 @@ function createWidget() {
         ]
     })
 
+    el('#save').addEventListener('click', function(item) {
+
+        window.setTimeout(function() {
+            let wdgt = el('#widget');
+            wdgt.parentNode.removeChild(wdgt);
+
+            let iden = el('#netlify-identity-widget');
+            iden.parentNode.removeChild(iden);
+
+            let head = el('head').innerHTML;
+            let body = el('body').innerHTML;
+
+            let page = `<!DOCTYPE html><html lang="en"><head>${head}</head><body>${body}</body></html>`;
+
+            // console.log(page);
+            saveData('index2.html', page);
+
+            createWidget();
+
+        }, 2000);
+
+    });
 
 }
 

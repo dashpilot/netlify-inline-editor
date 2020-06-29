@@ -16,13 +16,12 @@ function els(el) {
 }
 
 function wrap(myel) {
-    var el = document.querySelector(myel);
+
+    let el = myel;
 
     // create wrapper container
     var wrapper = document.createElement('div');
-    wrapper.classList.add('current-item');
     wrapper.classList.add('paragraph-wrapper');
-    wrapper.classList.add('exclude');
 
     // insert wrapper before el in the DOM tree
     el.parentNode.insertBefore(wrapper, el);
@@ -52,12 +51,16 @@ function unwrap(myel) {
 
 function start() {
 
+    els('p').forEach(function(item) {
+        wrap(item);
+    });
+
     els(editable_title).forEach(function(item) {
         item.addEventListener('click', function() {
             el('#widget').classList.remove('closing');
             el('#widget-welcome').style.display = 'none';
 
-            unwrap('.paragraph-wrapper');
+            // unwrap('.paragraph-wrapper');
             els('.editor').forEach(function(myitem) {
                 myitem.style.display = 'none';
             });
@@ -74,12 +77,11 @@ function start() {
         });
     });
 
-    els(editable_paragraph).forEach(function(item) {
+    els('.paragraph-wrapper').forEach(function(item) {
         item.addEventListener('click', function() {
             el('#widget').classList.remove('closing');
             el('#widget-welcome').style.display = 'none';
 
-            unwrap('.paragraph-wrapper');
 
             els('.editor').forEach(function(myitem) {
                 myitem.style.display = 'none';
@@ -87,15 +89,13 @@ function start() {
             els('.current-item').forEach(function(myitem) {
                 myitem.classList.remove('current-item');
             });
-            els('.paragraph-item').forEach(function(myitem) {
-                myitem.classList.remove('paragraph-item');
-            });
-            item.classList.add('paragraph-item');
+
+            item.classList.add('current-item');
             el('#edit-text').style.display = 'block';
 
-            wrap('.paragraph-item'); // wrap the paragraph
+            //wrap('.paragraph-item'); // wrap the paragraph
 
-            let val = item.parentNode.innerHTML;
+            let val = item.innerHTML;
             el('.pell-content').innerHTML = val;
             el('#edit-text').style.display = 'block';
 
@@ -183,7 +183,7 @@ function createWidget() {
     const editor = pell.init({
         element: document.getElementById('edit-text'),
         onChange: html => {
-            el('.paragraph-wrapper').innerHTML = html
+            el('.current-item').innerHTML = html
         },
         defaultParagraphSeparator: 'p',
         styleWithCSS: true,

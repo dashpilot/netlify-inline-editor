@@ -45,6 +45,8 @@ function unwrap(myel) {
         // remove the empty element
         parent.removeChild(el);
 
+        start();
+
     }
 }
 
@@ -56,7 +58,7 @@ function start() {
 
             unwrap('.paragraph-wrapper');
             els('.editor').forEach(function(myitem) {
-                myitem.classList.remove('current-item');
+                myitem.style.display = 'none';
             });
             els('.current-item').forEach(function(myitem) {
                 myitem.classList.remove('current-item');
@@ -66,7 +68,7 @@ function start() {
             el('#edit-title').value = val;
             el('#edit-title').style.display = 'block';
             el('#edit-title').addEventListener('keyup', function() {
-                item.innerText = el('#content').value;
+                item.innerText = el('#edit-title').value;
             });
         });
     });
@@ -78,7 +80,7 @@ function start() {
             unwrap('.paragraph-wrapper');
 
             els('.editor').forEach(function(myitem) {
-                myitem.classList.remove('current-item');
+                myitem.style.display = 'none';
             });
             els('.current-item').forEach(function(myitem) {
                 myitem.classList.remove('current-item');
@@ -139,8 +141,8 @@ function createWidget() {
     }
     @media only screen and (max-width : 750px) {.ww-widget{width:85%;bottom:0;left:0;}}
 
-    #widget-content textarea{height: 130px;}
     .editor{display: none;}
+    .pell-content{height: 250px !important;}
     .pell-content, .pell-content p{text-align: left; font-family: Helvetica, sans-serif; font-size: 17px; line-height: 26px;}
     #edit-text{margin-bottom: 75px;}
 
@@ -149,10 +151,12 @@ function createWidget() {
     ${editable_paragraph}:not(.exclude){cursor:pointer;border:1px solid transparent;}
     ${editable_paragraph}:hover:not(.exclude){border:1px solid lightblue;}
     .current-item{border:1px solid lightblue;}
+    div.current-item{border: none;}
+    #widget p{border: none;}
     </style>`;
 
     document.body.innerHTML += `
-    <div id="widget" class="ww-widget">
+    <div id="widget" class="ww-widget" spellCheck="false">
       <div class="ww-header"><div class="ww-close">&times;</div></div>
       <div class="ww-content" id="widget-content">
       
@@ -176,7 +180,7 @@ function createWidget() {
     const editor = pell.init({
         element: document.getElementById('edit-text'),
         onChange: html => {
-            el('.current-item').innerHTML = html
+            el('.paragraph-wrapper').innerHTML = html
         },
         defaultParagraphSeparator: 'p',
         styleWithCSS: true,
@@ -187,6 +191,7 @@ function createWidget() {
                 name: 'italic',
                 result: () => exec('italic')
             },
+            /*
             {
                 name: 'image',
                 result: () => {
@@ -201,6 +206,7 @@ function createWidget() {
                     if (url) exec('createLink', url)
                 }
             }
+            */
         ]
     })
 

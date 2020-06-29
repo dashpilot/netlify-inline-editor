@@ -3,9 +3,6 @@ document.querySelector('#login').addEventListener('click', function() {
 })
 
 netlifyIdentity.on('login', function(user) {
-
-    console.log(user);
-
     document.querySelector('#login').innerHTML = 'Log Out'
-
+    window.location = '../';
 })

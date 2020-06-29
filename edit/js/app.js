@@ -1,3 +1,8 @@
+netlifyIdentity.on('login', function(user) {
+    console.log(user);
+})
+
+
 function getData(mypath = '') {
 
     let user = netlifyIdentity.currentUser()

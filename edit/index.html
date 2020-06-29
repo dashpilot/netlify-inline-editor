@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .wrapper {
+            width: 320px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            margin-top: 50px;
+            margin-bottom: 100px;
+        }
+        
+        button {
+            margin-top: 25px;
+        }
+    </style>
+
+    <!-- Netlify Identity Widget -->
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Github -->
+    <script type="text/javascript" src="js/github.js"></script>
+
+    <!-- Markdown parser, just for this example -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper mt-5">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Log In</h5>
+                <p class="card-text">Log in with Netlify Identity</p>
+                <button class="btn btn-outline-dark w-100" id="login">Log In / Register</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="result"></div>
+
+    <script type="text/javascript" src="login.js"></script>
+
+</body>
+
+</html>

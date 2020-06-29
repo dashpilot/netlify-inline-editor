@@ -171,8 +171,8 @@ function createWidget() {
             let wdgt = el('#widget');
             wdgt.parentNode.removeChild(wdgt);
 
-            let iden = el('#netlify-identity-widget');
-            iden.parentNode.removeChild(iden);
+            // let iden = el('#netlify-identity-widget');
+            // iden.parentNode.removeChild(iden);
 
             let head = el('head').innerHTML;
             let body = el('body').innerHTML;

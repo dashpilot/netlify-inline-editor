@@ -33,8 +33,8 @@ function init() {
     });
 
     els(editable_paragraph).forEach(function(item) {
-        document.querySelector('#widget').classList.remove('closing');
         item.addEventListener('click', function() {
+            document.querySelector('#widget').classList.remove('closing');
             els('.current-item').forEach(function(myitem) {
                 myitem.classList.remove('current-item');
             });

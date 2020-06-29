@@ -54,7 +54,8 @@ function start() {
 
     els(editable_title).forEach(function(item) {
         item.addEventListener('click', function() {
-            document.querySelector('#widget').classList.remove('closing');
+            el('#widget').classList.remove('closing');
+            el('#widget-welcome').style.display = 'none';
 
             unwrap('.paragraph-wrapper');
             els('.editor').forEach(function(myitem) {
@@ -75,7 +76,8 @@ function start() {
 
     els(editable_paragraph).forEach(function(item) {
         item.addEventListener('click', function() {
-            document.querySelector('#widget').classList.remove('closing');
+            el('#widget').classList.remove('closing');
+            el('#widget-welcome').style.display = 'none';
 
             unwrap('.paragraph-wrapper');
 
@@ -108,11 +110,11 @@ function createWidget() {
     document.head.innerHTML += `<style>
     .ww-widget{background-color:white;position:fixed;bottom:0;right:0;margin:25px;width:350px;min-height:400px;border-radius:6px;overflow:hidden;text-align:center;box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);box-sizing:border-box;}
     .ww-header{height:160px;background-image:url(edit/img/mountain1.jpg);background-size:cover;}
-    .ww-content{padding: 20px;}
+    .ww-content{padding: 20px; min-height: 400px;}
     .ww-footer{padding: 15px;border-top:1px solid #DDD;position: absolute;bottom:0;left:0;width:100%;box-sizing:border-box;}
     .ww-close{float: right; font-size: 25px; padding:15px; padding-top: 5px;color:white;cursor:pointer;}
-    .ww-widget p{font-family: 'Cardo', serif;}
-    .ww-widget h1, .ww-widget h2, .ww-widget h3, .ww-widget h4, .ww-button{font-family: 'Oswald', sans-serif; text-transform: uppercase;}
+    .ww-widget p{font-family: Helvetica, sans-serif;}
+    .ww-widget h1, .ww-widget h2, .ww-widget h3, .ww-widget h4, .ww-button{font-family: Helvetica, sans-serif; text-transform: uppercase;}
     .ww-button{display:block;text-align:center;padding:10px 15px;background-color: #20bf6b;border-radius: 4px;color:white;text-decoration: none;}
     .ww-widget{opacity: 0;animation-name: bounceIn;animation-duration: 250ms;animation-timing-function: linear;animation-fill-mode: forwards;}
     .closing{animation-name: bounceOut;animation-duration: 250ms;animation-timing-function: linear;animation-fill-mode: forwards;}
@@ -143,7 +145,7 @@ function createWidget() {
 
     .editor{display: none;}
     .pell-content{height: 250px !important;}
-    .pell-content, .pell-content p{text-align: left; font-family: Helvetica, sans-serif; font-size: 17px; line-height: 26px;}
+    .pell-content, .pell-content p{text-align: left; font-family: Helvetica, sans-serif; font-size: 17px; line-height: 26px; font-weight: 400;}
     #edit-text{margin-bottom: 75px;}
 
     ${editable_title}{cursor:pointer;border:1px solid transparent;}
@@ -159,8 +161,9 @@ function createWidget() {
     <div id="widget" class="ww-widget" spellCheck="false">
       <div class="ww-header"><div class="ww-close">&times;</div></div>
       <div class="ww-content" id="widget-content">
-      
-      <!-- <h2 class="exclude">Welcome</h2><p class="exclude">Click on an element on the page to edit it.</p>-->
+     <div id="widget-welcome">
+     <h2 class="exclude">Welcome</h2><p class="exclude">Click on an element on the page to edit it.</p>
+     </div>
       
       <input type="text" class="form-control editor" id="edit-title">
       <div id="edit-text" class="pell editor"></div>

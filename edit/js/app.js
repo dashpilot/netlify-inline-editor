@@ -1,9 +1,9 @@
 fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
-            for (const [key, value] of Object.entries(data)) {
-                el('#' + key).innerHTML = value;
-            });
+        for (const [key, value] of Object.entries(data)) {
+            el("#" + key).innerHTML = value;
+        }
     });
 
 const editable_title =

@@ -1,6 +1,6 @@
 # netlify-inline-editor
 
-On page editor that saves to github via Netlify Identity
+On-page editor that saves to github via Netlify Identity
 
 ## How to set up
 

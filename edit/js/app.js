@@ -104,11 +104,6 @@ function createWidget() {
   document.querySelector(".ww-close").addEventListener("click", function() {
     document.querySelector("#widget").classList.add("closing");
   });
-  document
-    .querySelector(".ww-button-close")
-    .addEventListener("click", function() {
-      document.querySelector("#widget").classList.add("closing");
-    });
 
   const editor = pell.init({
     element: document.getElementById("edit-text"),
@@ -161,25 +156,7 @@ function createWidget() {
       el("#spinner").style.display = "none";
     }, 2000);
 
-    /*
-                                                        window.setTimeout(function() {
-                                                            let wdgt = el("#widget");
-                                                            wdgt.parentNode.removeChild(wdgt);
 
-                                                            let iden = el("#netlify-identity-widget");
-                                                            iden.parentNode.removeChild(iden);
-
-                                                            let head = el("head").innerHTML;
-                                                            let body = el("body").innerHTML;
-
-                                                            let page = `<!DOCTYPE html><html lang="en"><head>${head}</head><body>${body}</body></html>`;
-
-                                                            // console.log(page);
-                                                            saveData("index2.html", page);
-
-                                                            createWidget();
-                                                        }, 2000);
-                                                        */
   });
 }
 

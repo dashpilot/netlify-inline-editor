@@ -136,38 +136,17 @@
     margin-bottom: 75px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+.cms-editable {
     cursor: pointer;
     border: 1px solid transparent;
 }
 
-h1:hover:not(.exclude),
-h2:hover:not(.exclude),
-h3:hover:not(.exclude),
-h4:hover:not(.exclude),
-h5:hover:not(.exclude) {
-    border: 1px solid lightblue;
-}
-
-p:not(.exclude) {
-    cursor: pointer;
-    border: 1px solid transparent;
-}
-
-p:hover:not(.exclude) {
+.cms-editable:hover {
     border: 1px solid lightblue;
 }
 
 .current-item {
     border: 1px solid lightblue;
-}
-
-div.current-item {
-    border: none;
 }
 
 #widget p {

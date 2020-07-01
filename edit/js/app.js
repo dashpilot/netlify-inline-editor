@@ -1,3 +1,6 @@
+const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
+const blocks = ["div"];
+
 fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
@@ -5,10 +8,6 @@ fetch("index.json")
             el("#" + key).innerHTML = value;
         }
     });
-
-const editable_title =
-    "h1:not(.exclude),h2:not(.exclude),h3:not(.exclude),h4:not(.exclude),h5:not(.exclude)";
-const editable_paragraph = "p:not(.exclude)";
 
 netlifyIdentity.on("login", function(user) {
     console.log(user);
@@ -24,44 +23,12 @@ function els(el) {
     return document.querySelectorAll(el);
 }
 
-function wrap(myel) {
-    let el = myel;
-
-    // create wrapper container
-    var wrapper = document.createElement("div");
-    wrapper.classList.add("paragraph-wrapper");
-
-    // insert wrapper before el in the DOM tree
-    el.parentNode.insertBefore(wrapper, el);
-
-    // move el into wrapper
-    wrapper.appendChild(el);
-}
-
-function unwrap(myel) {
-    var el = document.querySelector(myel);
-
-    if (typeof el != "undefined" && el != null) {
-        // get the element's parent node
-        var parent = el.parentNode;
-
-        // move all children out of the element
-        while (el.firstChild) parent.insertBefore(el.firstChild, el);
-
-        // remove the empty element
-        parent.removeChild(el);
-
-        start();
-    }
-}
-
 function start() {
     els(".cms-editable").forEach(function(item) {
         item.addEventListener("click", function() {
             el("#widget").classList.remove("closing");
             el("#widget-welcome").style.display = "none";
 
-            // unwrap('.paragraph-wrapper');
             els(".editor").forEach(function(myitem) {
                 myitem.style.display = "none";
             });
@@ -72,20 +39,14 @@ function start() {
 
             let type = item.tagName.toLowerCase();
 
-            if (
-                type == "h1" ||
-                type == "h2" ||
-                type == "h3" ||
-                type == "h4" ||
-                type == "h5"
-            ) {
+            if (spans.includes(type)) {
                 let val = item.innerText;
                 el("#edit-title").value = val;
                 el("#edit-title").style.display = "block";
                 el("#edit-title").addEventListener("keyup", function() {
                     item.innerText = el("#edit-title").value;
                 });
-            } else if (type == "div") {
+            } else if (blocks.includes(type)) {
                 let val = item.innerHTML;
                 el(".pell-content").innerHTML = val;
                 el("#edit-text").style.display = "block";
@@ -138,15 +99,9 @@ function createWidget() {
             let type = item.tagName.toLowerCase();
 
             let val = "";
-            if (
-                type == "h1" ||
-                type == "h2" ||
-                type == "h3" ||
-                type == "h4" ||
-                type == "h5"
-            ) {
+            if (spans.includes(type)) {
                 val = item.innerText.replace(/  |\r\n|\n|\r/gm, "");
-            } else if (type == "div") {
+            } else if (blocks.includes(type)) {
                 val = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
             } else {
                 val = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");

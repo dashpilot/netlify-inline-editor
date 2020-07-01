@@ -190,3 +190,15 @@
 .pell-button-selected {
     background-color: #f0f0f0;
 }
+
+
+/* Fade in preloader */
+
+.toggle-content {
+    opacity: 0;
+}
+
+.toggle-content.is-visible {
+    opacity: 1;
+    transition: opacity 750ms ease-in-out;
+}

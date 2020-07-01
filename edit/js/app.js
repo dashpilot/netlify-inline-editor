@@ -1,20 +1,6 @@
 const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 
-fetch("index.json")
-    .then((response) => response.json())
-    .then(function(data) {
-        for (const [key, value] of Object.entries(data)) {
-            el("#" + key).innerHTML = value;
-        }
-    });
-
-netlifyIdentity.on("login", function(user) {
-    console.log(user);
-    createWidget();
-    start();
-});
-
 function el(el) {
     return document.querySelector(el);
 }
@@ -22,6 +8,21 @@ function el(el) {
 function els(el) {
     return document.querySelectorAll(el);
 }
+
+fetch("index.json")
+    .then((response) => response.json())
+    .then(function(data) {
+        for (const [key, value] of Object.entries(data)) {
+            el("#" + key).innerHTML = value;
+        }
+        el("body").classList.add("is-visible");
+    });
+
+netlifyIdentity.on("login", function(user) {
+    console.log(user);
+    createWidget();
+    start();
+});
 
 function start() {
     els(".cms-editable").forEach(function(item) {

@@ -15,6 +15,9 @@ fetch("index.json")
     .then(function(data) {
         for (const [key, value] of Object.entries(data)) {
             el("#" + key).innerHTML = data[key].value;
+            if (data[key].hasOwnProperty("href")) {
+                el("#" + key).href = data[key].href;
+            }
         }
         el("body").classList.add("is-visible");
     });

@@ -1,3 +1,4 @@
+// define the types of elements
 const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 const anchors = ["a"];

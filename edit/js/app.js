@@ -64,7 +64,7 @@ function createWidget() {
      <div id="widget-welcome">
      <h2 class="exclude">Welcome</h2><p class="exclude">Click on an element on the page to edit it.</p>
      </div>
-      <input type="text" class="form-control editor" id="edit-title">
+      <input id="edit-title" type="text" class="form-control editor" style="display: none;">
       <div id="edit-text" class="pell editor"></div>
       </div>
       <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin" id="spinner" style="display: none;"></i> &nbsp;Save</a></div>

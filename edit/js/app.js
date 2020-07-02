@@ -1,5 +1,6 @@
 const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
+const anchors = ["a"];
 
 function el(el) {
     return document.querySelector(el);
@@ -13,7 +14,7 @@ fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
         for (const [key, value] of Object.entries(data)) {
-            el("#" + key).innerHTML = value;
+            el("#" + key).innerHTML = data[key].value;
         }
         el("body").classList.add("is-visible");
     });
@@ -51,6 +52,19 @@ function start() {
                 let val = item.innerHTML;
                 el(".pell-content").innerHTML = val;
                 el("#edit-text").style.display = "block";
+            } else if (anchors.includes(type)) {
+                let val = item.innerText;
+                let href = item.href;
+                el("#edit-title").value = val;
+                el("#edit-link").value = href;
+                el("#edit-title").style.display = "block";
+                el("#edit-link").style.display = "block";
+                el("#edit-title").addEventListener("keyup", function() {
+                    item.innerText = el("#edit-title").value;
+                });
+                el("#edit-link").addEventListener("keyup", function() {
+                    item.href = el("#edit-link").value;
+                });
             }
         });
     });
@@ -64,7 +78,8 @@ function createWidget() {
      <div id="widget-welcome">
      <h2 class="exclude">Welcome</h2><p class="exclude">Click on an element on the page to edit it.</p>
      </div>
-      <input id="edit-title" type="text" class="form-control editor" style="display: none;">
+      <input id="edit-title" type="text" class="form-control editor" style="display: none;" placeholder="text">
+      <input id="edit-link" type="text" class="form-control mt-3 editor" style="display: none;" placeholder="link">
       <div id="edit-text" class="pell editor"></div>
       </div>
       <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin" id="spinner" style="display: none;"></i> &nbsp;Save</a></div>
@@ -98,17 +113,19 @@ function createWidget() {
         els(".cms-editable").forEach(function(item) {
             let id = item.id;
             let type = item.tagName.toLowerCase();
+            data[id] = {};
 
             let val = "";
             if (spans.includes(type)) {
-                val = item.innerText.replace(/  |\r\n|\n|\r/gm, "");
+                data[id].value = item.innerText.replace(/  |\r\n|\n|\r/gm, "");
             } else if (blocks.includes(type)) {
-                val = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
+                data[id].value = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
+            } else if (anchors.includes(type)) {
+                data[id].value = item.innerText.replace(/  |\r\n|\n|\r/gm, "");
+                data[id].href = item.href;
             } else {
-                val = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
+                data[id].value = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
             }
-
-            data[id] = val;
         });
 
         console.log(data);
@@ -119,6 +136,38 @@ function createWidget() {
             el("#spinner").style.display = "none";
         }, 2000);
     });
+}
+
+function getData(mypath = "") {
+    let user = netlifyIdentity.currentUser();
+    let token = user.token.access_token;
+
+    var url = "/.netlify/git/github/contents/" + mypath;
+    var bearer = "Bearer " + token;
+    return fetch(url, {
+            method: "GET",
+            withCredentials: true,
+            credentials: "include",
+            headers: {
+                Authorization: bearer,
+                "Content-Type": "application/json",
+            },
+        })
+        .then((resp) => {
+            return resp.json();
+        })
+        .then((data) => {
+            if (data.code == 400) {
+                netlifyIdentity.refresh().then(function(token) {
+                    getData(mypath);
+                });
+            } else {
+                return data;
+            }
+        })
+        .catch((error) => {
+            return error;
+        });
 }
 
 function saveData(mypath, data) {
@@ -165,10 +214,8 @@ function saveData(mypath, data) {
                     return data;
                 }
             })
-            .catch((error) =>
-                this.setState({
-                    message: "Error: " + error,
-                })
-            );
+            .catch((error) => {
+                return error;
+            });
     });
 }

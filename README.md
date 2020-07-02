@@ -1,13 +1,6 @@
 # netlify-inline-editor
 
-On-page editor for static sites that saves to github via Netlify Identity
-
-## How to set up
-
-1. Clone this repo
-2. Set up a site on Netlify and enable Netlify Identity and Git Gateway
-3. Log in via /edit
-4. Start editing your page by clicking on the elenents you want to edit.
+On-page editor for static sites that saves to github via Netlify Identity. Written in vanilla js.
 
 ## Demo
 
@@ -15,6 +8,13 @@ Try it out by creating an account on:
 https://inline-editor.netlify.app/edit/
 
 After login, you'll be redirected to the main page, where you can edit the page by just clicking on the element you want to edit. Changes will be saved as json, and loaded when you refresh the page.
+
+## How to set up
+
+1. Clone this repo
+2. Set up a site on Netlify and enable Netlify Identity and Git Gateway
+3. Log in via /edit
+4. Start editing your page by clicking on the elenents you want to edit.
 
 ## How to make elements on a page editable
 

@@ -121,38 +121,6 @@ function createWidget() {
     });
 }
 
-function getData(mypath = "") {
-    let user = netlifyIdentity.currentUser();
-    let token = user.token.access_token;
-
-    var url = "/.netlify/git/github/contents/" + mypath;
-    var bearer = "Bearer " + token;
-    return fetch(url, {
-            method: "GET",
-            withCredentials: true,
-            credentials: "include",
-            headers: {
-                Authorization: bearer,
-                "Content-Type": "application/json",
-            },
-        })
-        .then((resp) => {
-            return resp.json();
-        })
-        .then((data) => {
-            if (data.code == 400) {
-                netlifyIdentity.refresh().then(function(token) {
-                    getData(mypath);
-                });
-            } else {
-                return data;
-            }
-        })
-        .catch((error) => {
-            return error;
-        });
-}
-
 function saveData(mypath, data) {
     getData(mypath).then(function(curfile) {
         let user = netlifyIdentity.currentUser();

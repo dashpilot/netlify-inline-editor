@@ -173,8 +173,10 @@ function createWidget() {
                     // console.log(base64data);
                     document.querySelector(".current-item").src = base64data;
                     let name = Math.random().toString(36).substr(2, 9) + ".jpg";
+                    let path = "img/" + name;
                     var data = base64data.replace(/^data:image\/\w+;base64,/, "");
-                    saveData("img/" + name, data);
+                    saveData(path, data);
+                    poll(path);
                 };
             }
         );
@@ -262,4 +264,28 @@ function saveData(mypath, data) {
                 return error;
             });
     });
+}
+
+function poll(path) {
+    window.setTimeout(function() {
+        let result = doesFileExist(path);
+        if (!result) {
+            console.log("not found yet");
+            poll(path);
+        } else {
+            console.log("ok");
+        }
+    }, 2000);
+}
+
+function doesFileExist(urlToFile) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("HEAD", urlToFile, false);
+    xhr.send();
+
+    if (xhr.status == "404") {
+        return false;
+    } else {
+        return true;
+    }
 }

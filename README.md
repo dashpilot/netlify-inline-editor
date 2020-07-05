@@ -10,8 +10,10 @@ https://inline-editor.netlify.app/edit/
 After login, you'll be redirected to the main page, where you can edit the page by just clicking on the element you want to edit. Changes will be saved as json, and loaded when you refresh the page.
 
 ## Preview
-Just click on an element to edit it.
+
 ![Preview](edit/img/preview.jpg)
+
+* Just click on an element (left) to edit it in the overlay (right).*
 
 ## Automatic Setup
 <a href="https://app.netlify.com/start/deploy?repository=https://github.com/dashpilot/netlify-inline-editor&stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>

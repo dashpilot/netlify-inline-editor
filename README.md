@@ -17,7 +17,7 @@ After login, you'll be redirected to the main page, where you can edit the page 
 1. Clone this repo
 2. Set up a site on Netlify and enable Netlify Identity and Git Gateway
 3. Log in via /edit
-4. Start editing your page by clicking on the elenents you want to edit.
+4. Start editing your page by clicking on the elements you want to edit.
 
 ## How to make elements on a page editable
 

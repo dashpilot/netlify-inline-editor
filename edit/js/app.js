@@ -40,6 +40,8 @@ netlifyIdentity.on("login", function(user) {
     start();
 });
 
+netlifyIdentity.on("logout", () => console.log("Logged out"));
+
 function start() {
     els("[data-name]").forEach(function(item) {
         item.addEventListener("click", function() {

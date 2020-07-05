@@ -11,29 +11,26 @@ function els(el) {
     return document.querySelectorAll(el);
 }
 
-const user = await netlifyIdentity.currentUser();
-if (user === null) {
-    fetch("index.json")
-        .then((response) => response.json())
-        .then(function(data) {
-            console.log(data);
-            console.log("fetched from Netlify");
-            for (const [key, value] of Object.entries(data)) {
-                for (const [key2, value2] of Object.entries(value)) {
-                    if (key2 == "image") {
-                        el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                    } else {
-                        el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
-                    }
+fetch("index.json")
+    .then((response) => response.json())
+    .then(function(data) {
+        console.log(data);
+        console.log("fetched from Netlify");
+        for (const [key, value] of Object.entries(data)) {
+            for (const [key2, value2] of Object.entries(value)) {
+                if (key2 == "image") {
+                    el("#" + key + " [data-name='" + key2 + "']").src = value2;
+                } else {
+                    el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
                 }
             }
-            el("body").classList.add("is-visible");
-        })
-        .catch((error) => {
-            el("body").classList.add("is-visible");
-            console.log("error: " + error);
-        });
-}
+        }
+        el("body").classList.add("is-visible");
+    })
+    .catch((error) => {
+        el("body").classList.add("is-visible");
+        console.log("error: " + error);
+    });
 
 netlifyIdentity.on("login", function(user) {
     console.log(user);

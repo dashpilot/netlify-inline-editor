@@ -1,3 +1,6 @@
+![on-page editing](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen)
+![vanilla javascript](https://img.shields.io/badge/vanilla-js-fadc60)
+
 # :pencil2: Netlify Inline Editor
 
 On-page editor for static sites that saves to Github via Netlify Identity. Written in vanilla js.

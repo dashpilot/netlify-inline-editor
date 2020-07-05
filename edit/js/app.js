@@ -139,7 +139,11 @@ function createWidget() {
 
             els("#" + id + " [data-name]").forEach(function(item2) {
                 let name = item2.getAttribute("data-name");
-                data[id][name] = item2.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
+                if (name == "image") {
+                    data[id][name] = item2.src;
+                } else {
+                    data[id][name] = item2.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
+                }
             });
         });
 

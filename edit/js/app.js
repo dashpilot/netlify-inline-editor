@@ -212,18 +212,19 @@ function getJson(mypath = "") {
                     getData(mypath);
                 });
             } else {
-                /*
-                                                                                                                for (const [key, value] of Object.entries(data)) {
-                                                                                                                    for (const [key2, value2] of Object.entries(value)) {
-                                                                                                                        if (key2 == "image") {
-                                                                                                                            el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                                                                                                                        } else {
-                                                                                                                            el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                                el("body").classList.add("is-visible");
-                                                                                                                */
+                let content = JSON.parse(atob(data.content));
+
+                for (const [key, value] of Object.entries(content)) {
+                    for (const [key2, value2] of Object.entries(value)) {
+                        if (key2 == "image") {
+                            el("#" + key + " [data-name='" + key2 + "']").src = value2;
+                        } else {
+                            el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+                        }
+                    }
+                }
+                el("body").classList.add("is-visible");
+
                 console.log(data);
                 return data;
             }

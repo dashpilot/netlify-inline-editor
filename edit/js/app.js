@@ -14,11 +14,11 @@ function els(el) {
 fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
-        data.forEach(function(item) {
+        for (const item of Object.entries(data)) {
             for (const [key, value] of Object.entries(item)) {
                 el("#" + item + " [data-name='" + item + "']").innerHTML = value;
             }
-        });
+        }
         el("body").classList.add("is-visible");
     })
     .catch((error) => {

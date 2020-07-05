@@ -1,4 +1,4 @@
-![on-page editing](https://img.shields.io/badge/auto%20install-brightgreen)
+![on-page editing](https://img.shields.io/badge/auto-inactive%20install-brightgreen)
 ![vanilla javascript](https://img.shields.io/badge/vanilla-js-fadc60)
 
 # :pencil2: Netlify Inline Editor

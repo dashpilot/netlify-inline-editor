@@ -11,25 +11,31 @@ function els(el) {
     return document.querySelectorAll(el);
 }
 
-fetch("index.json")
-    .then((response) => response.json())
-    .then(function(data) {
-        console.log(data);
-        for (const [key, value] of Object.entries(data)) {
-            for (const [key2, value2] of Object.entries(value)) {
-                if (key2 == "image") {
-                    el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                } else {
-                    el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+let user = netlifyIdentity.currentUser();
+if (user) {
+    console.log("user is logged in");
+    getJson("index.json");
+} else {
+    fetch("index.json")
+        .then((response) => response.json())
+        .then(function(data) {
+            console.log(data);
+            for (const [key, value] of Object.entries(data)) {
+                for (const [key2, value2] of Object.entries(value)) {
+                    if (key2 == "image") {
+                        el("#" + key + " [data-name='" + key2 + "']").src = value2;
+                    } else {
+                        el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+                    }
                 }
             }
-        }
-        el("body").classList.add("is-visible");
-    })
-    .catch((error) => {
-        el("body").classList.add("is-visible");
-        console.log("error: " + error);
-    });
+            el("body").classList.add("is-visible");
+        })
+        .catch((error) => {
+            el("body").classList.add("is-visible");
+            console.log("error: " + error);
+        });
+}
 
 netlifyIdentity.on("login", function(user) {
     console.log(user);
@@ -184,6 +190,51 @@ function createWidget() {
             }
         );
     };
+}
+
+function getJson(mypath = "") {
+    let user = netlifyIdentity.currentUser();
+    let token = user.token.access_token;
+
+    var url = "/.netlify/git/github/contents/" + mypath;
+    var bearer = "Bearer " + token;
+    return fetch(url, {
+            method: "GET",
+            withCredentials: true,
+            credentials: "include",
+            headers: {
+                Authorization: bearer,
+                "Content-Type": "application/json",
+            },
+        })
+        .then((resp) => {
+            return resp.json();
+        })
+        .then((data) => {
+            if (data.code == 400) {
+                netlifyIdentity.refresh().then(function(token) {
+                    getData(mypath);
+                });
+            } else {
+                /*
+                                        for (const [key, value] of Object.entries(data)) {
+                                            for (const [key2, value2] of Object.entries(value)) {
+                                                if (key2 == "image") {
+                                                    el("#" + key + " [data-name='" + key2 + "']").src = value2;
+                                                } else {
+                                                    el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+                                                }
+                                            }
+                                        }
+                                        el("body").classList.add("is-visible");
+                                        */
+                console.log(data);
+                return data;
+            }
+        })
+        .catch((error) => {
+            return error;
+        });
 }
 
 function getData(mypath = "") {

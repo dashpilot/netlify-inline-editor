@@ -11,6 +11,9 @@ function els(el) {
     return document.querySelectorAll(el);
 }
 
+const user = netlifyIdentity.currentUser();
+console.log(user);
+
 fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {

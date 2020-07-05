@@ -63,6 +63,8 @@ function start() {
                 let val = item.innerHTML;
                 el(".pell-content").innerHTML = val;
                 el("#edit-text").style.display = "block";
+            } else if (type == "img") {
+                el("#edit-image").style.display = "block";
             } else if (anchors.includes(type)) {
                 let val = item.innerText;
                 let href = item.href;
@@ -93,6 +95,9 @@ function createWidget() {
       <input id="edit-title" type="text" class="form-control editor" style="display: none;" placeholder="text">
       <input id="edit-link" type="text" class="form-control mt-3 editor" style="display: none;" placeholder="link">
       <div id="edit-text" class="pell editor"></div>
+      <div id="edit-image" class="editor">
+        <input type="file" id="select">
+      </div>
       </div>
       <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin mr-2" id="spinner" style="display: none;"></i> Save</a></div>
     </div>`;
@@ -119,7 +124,7 @@ function createWidget() {
     });
 
     el("#save").addEventListener("click", function(item) {
-        el("#spinner").style.display = "block";
+        el("#spinner").style.display = "inline-block";
 
         data = {};
         els(".editable").forEach(function(item) {
@@ -141,6 +146,27 @@ function createWidget() {
             el("#spinner").style.display = "none";
         }, 2000);
     });
+
+    document.getElementById("select").onchange = function(evt) {
+        ImageTools.resize(
+            this.files[0], {
+                width: 500, // maximum width
+                height: 500, // maximum height
+            },
+            function(blob, didItResize) {
+                // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
+
+                // you can also now upload this blob using an XHR.
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function() {
+                    var base64data = reader.result;
+                    // console.log(base64data);
+                    document.querySelector(".current-item").src = base64data;
+                };
+            }
+        );
+    };
 }
 
 function getData(mypath = "") {

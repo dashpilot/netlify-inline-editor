@@ -14,12 +14,11 @@ function els(el) {
 fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
-        for (const [key, value] of Object.entries(data)) {
-            el("#" + key).innerHTML = data[key].value;
-            if (data[key].hasOwnProperty("href")) {
-                el("#" + key).href = data[key].href;
+        data.forEach(function(item) {
+            for (const [key, value] of Object.entries(item)) {
+                el("#" + item + " [data-name='" + item + "']").innerHTML = value;
             }
-        }
+        });
         el("body").classList.add("is-visible");
     })
     .catch((error) => {
@@ -34,7 +33,7 @@ netlifyIdentity.on("login", function(user) {
 });
 
 function start() {
-    els(".cms-editable").forEach(function(item) {
+    els("[data-name]").forEach(function(item) {
         item.addEventListener("click", function() {
             el("#widget").classList.remove("closing");
             el("#widget-welcome").style.display = "none";
@@ -46,6 +45,10 @@ function start() {
                 myitem.classList.remove("current-item");
             });
             item.classList.add("current-item");
+
+            let parent = item.closest(".editable");
+            el("#section-name").innerHTML =
+                parent.id + " &raquo; " + item.getAttribute("data-name");
 
             let type = item.tagName.toLowerCase();
 
@@ -86,6 +89,7 @@ function createWidget() {
      <div id="widget-welcome">
      <h2 class="exclude">Welcome</h2><p class="exclude">Click on an element on the page to edit it.</p>
      </div>
+      <div id="section-name"></div>
       <input id="edit-title" type="text" class="form-control editor" style="display: none;" placeholder="text">
       <input id="edit-link" type="text" class="form-control mt-3 editor" style="display: none;" placeholder="link">
       <div id="edit-text" class="pell editor"></div>
@@ -117,23 +121,16 @@ function createWidget() {
     el("#save").addEventListener("click", function(item) {
         el("#spinner").style.display = "block";
 
-        data = {};
-        els(".cms-editable").forEach(function(item) {
+        data = [];
+        els(".editable").forEach(function(item) {
             let id = item.id;
             let type = item.tagName.toLowerCase();
             data[id] = {};
 
-            let val = "";
-            if (spans.includes(type)) {
-                data[id].value = item.innerText.replace(/  |\r\n|\n|\r/gm, "");
-            } else if (blocks.includes(type)) {
-                data[id].value = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
-            } else if (anchors.includes(type)) {
-                data[id].value = item.innerText.replace(/  |\r\n|\n|\r/gm, "");
-                data[id].href = item.href;
-            } else {
-                data[id].value = item.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
-            }
+            els("#" + id + " [data-name]").forEach(function(item2) {
+                let name = item2.getAttribute("data-name");
+                data[id][name] = item2.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
+            });
         });
 
         console.log(data);

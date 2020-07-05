@@ -83,6 +83,12 @@
     animation-fill-mode: forwards;
 }
 
+#section-name {
+    text-align: left;
+    padding-bottom: 10px;
+    text-transform: capitalize;
+}
+
 @keyframes bounceIn {
     0% {
         opacity: 0;
@@ -121,7 +127,7 @@
 }
 
 .pell-content {
-    height: 250px !important;
+    height: 200px !important;
 }
 
 .pell-content,
@@ -137,12 +143,12 @@
     margin-bottom: 75px;
 }
 
-.cms-editable {
+[data-name] {
     cursor: pointer;
     border: 1px solid transparent;
 }
 
-.cms-editable:hover {
+[data-name]:hover {
     border: 1px solid lightblue;
 }
 

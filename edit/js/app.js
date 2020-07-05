@@ -140,7 +140,7 @@ function createWidget() {
             els("#" + id + " [data-name]").forEach(function(item2) {
                 let name = item2.getAttribute("data-name");
                 if (name == "image") {
-                    data[id][name] = item2.getAttribute("data-src"); // use the path instead of the source
+                    data[id][name] = item2.src;
                 } else {
                     data[id][name] = item2.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
                 }
@@ -149,7 +149,7 @@ function createWidget() {
 
         console.log(data);
 
-        saveData("index.json", btoa(JSON.stringify(data)));
+        saveData("index.json", btoa(JSON.stringify(data)), "json");
 
         window.setTimeout(function() {
             el("#spinner").style.display = "none";
@@ -175,14 +175,11 @@ function createWidget() {
                     let path = "img/" + name;
 
                     // first, temporarily show the base64 data
-                    document.querySelector(".current-item").src = base64data;
-                    // store the final path in data-src
-                    document
-                        .querySelector(".current-item")
-                        .setAttribute("data-src", path);
-                    // save the image in the background
+                    //document.querySelector(".current-item").src = base64data;
+
+                    // save the image
                     var data = base64data.replace(/^data:image\/\w+;base64,/, "");
-                    saveData(path, data);
+                    saveData(path, data, "image");
                 };
             }
         );
@@ -221,7 +218,7 @@ function getData(mypath = "") {
         });
 }
 
-function saveData(mypath, data) {
+function saveData(mypath, data, type) {
     getData(mypath).then(function(curfile) {
         let user = netlifyIdentity.currentUser();
         let token = user.token.access_token;
@@ -263,6 +260,11 @@ function saveData(mypath, data) {
                     });
                 } else {
                     console.log(data);
+                    let url = data.content.download_url;
+                    if (type == "image") {
+                        document.querySelector(".current-item").src = url; // store the raw URL, so we don't have to wait for Netlify
+                    }
+
                     return data;
                 }
             })

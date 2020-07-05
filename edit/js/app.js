@@ -214,6 +214,8 @@ function getJson(mypath = "") {
             } else {
                 let content = JSON.parse(atob(data.content));
 
+                console.log(content);
+
                 for (const [key, value] of Object.entries(content)) {
                     for (const [key2, value2] of Object.entries(value)) {
                         if (key2 == "image") {

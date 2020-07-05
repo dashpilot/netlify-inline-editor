@@ -11,6 +11,12 @@ function els(el) {
     return document.querySelectorAll(el);
 }
 
+netlifyIdentity.on("login", function(user) {
+    console.log(user);
+    createWidget();
+    start();
+});
+
 let user = netlifyIdentity.currentUser();
 if (user) {
     console.log("user is logged in");
@@ -36,12 +42,6 @@ if (user) {
             console.log("error: " + error);
         });
 }
-
-netlifyIdentity.on("login", function(user) {
-    console.log(user);
-    createWidget();
-    start();
-});
 
 function start() {
     els("[data-name]").forEach(function(item) {
@@ -217,17 +217,17 @@ function getJson(mypath = "") {
                 });
             } else {
                 /*
-                                        for (const [key, value] of Object.entries(data)) {
-                                            for (const [key2, value2] of Object.entries(value)) {
-                                                if (key2 == "image") {
-                                                    el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                                                } else {
-                                                    el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
-                                                }
-                                            }
-                                        }
-                                        el("body").classList.add("is-visible");
-                                        */
+                                                        for (const [key, value] of Object.entries(data)) {
+                                                            for (const [key2, value2] of Object.entries(value)) {
+                                                                if (key2 == "image") {
+                                                                    el("#" + key + " [data-name='" + key2 + "']").src = value2;
+                                                                } else {
+                                                                    el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+                                                                }
+                                                            }
+                                                        }
+                                                        el("body").classList.add("is-visible");
+                                                        */
                 console.log(data);
                 return data;
             }

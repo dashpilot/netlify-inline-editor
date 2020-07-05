@@ -16,6 +16,8 @@ After login, you'll be redirected to the main page, where you can edit the page 
 *Just click on an element (left) to edit it in the overlay (right).*
 
 ## Automatic Setup
+Clicking the button below will automatically clone this repo to your own Github account, create a new Netlify website and configure Netlify Identity and Git Gateway for you. After that you can log in using your Github email and password (or create a new user in Netlify).
+
 <a href="https://app.netlify.com/start/deploy?repository=https://github.com/dashpilot/netlify-inline-editor&stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
 
 ## Manual Setup

@@ -149,7 +149,7 @@ function createWidget() {
 
         console.log(data);
 
-        saveData("index.json", JSON.stringify(data));
+        saveData("index.json", btoa(JSON.stringify(data)));
 
         window.setTimeout(function() {
             el("#spinner").style.display = "none";
@@ -172,6 +172,9 @@ function createWidget() {
                     var base64data = reader.result;
                     // console.log(base64data);
                     document.querySelector(".current-item").src = base64data;
+                    let name = Math.random().toString(36).substr(2, 9) + ".jpg";
+                    var data = base64data.replace(/^data:image\/\w+;base64,/, "");
+                    saveData("img/" + name, data);
                 };
             }
         );
@@ -218,7 +221,7 @@ function saveData(mypath, data) {
         let opts = {
             path: mypath,
             message: "initial commit",
-            content: btoa(data),
+            content: data,
             branch: "master",
             committer: {
                 name: "Dashpilot",

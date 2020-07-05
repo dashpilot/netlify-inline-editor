@@ -13,9 +13,10 @@ After login, you'll be redirected to the main page, where you can edit the page 
 
 ![Preview](edit/img/preview.jpg)
 
-*Just click on an element (left) to edit it in the overlay (right).*
+_Just click on an element (left) to edit it in the overlay (right)._
 
 ## Automatic Setup
+
 Clicking the button below will automatically clone this repo to your own Github account, create a new Netlify website and configure Netlify Identity and Git Gateway for you. After that you can log in using your Github email and password (or create a new user in Netlify).
 
 <a href="https://app.netlify.com/start/deploy?repository=https://github.com/dashpilot/netlify-inline-editor&stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
@@ -29,4 +30,25 @@ Clicking the button below will automatically clone this repo to your own Github 
 
 ## How to make elements on a page editable
 
-To make an element editable via the CMS, just give it an `id` and a class of `cms-editabe`. The CMS will automatically detect what kind of element it is, and show the appropriate input.
+To make an element editable via the CMS, just give the parent a class of `editable` and an `id` and the element itself a `data-name` attribute. For example:
+
+```
+<section class="editable" id="my-first-section">
+    <h1 data-name="title">Hello World</h1>
+    <small data-name="subtitle">This is a subtitle</small>
+</section>
+```
+
+In this example, the parent section has a class of `editable` and an id of "my-first-section". The editable elements (`h1` and `small`) both have a `data-name` attribute. The CMS will store this as:
+
+```
+{
+"my-first-section":
+    {
+        "title":"Hello World",
+        "subtitle":"This is a subtitle"
+    }
+}
+```
+
+The CMS will also automatically detect what kind of element it is, and show the appropriate input.

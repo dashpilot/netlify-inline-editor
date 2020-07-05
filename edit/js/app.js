@@ -14,9 +14,9 @@ function els(el) {
 fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
-        for (const item of Object.entries(data)) {
-            for (const [key, value] of Object.entries(item)) {
-                el("#" + item + " [data-name='" + item + "']").innerHTML = value;
+        for (const [key, value] of Object.entries(data)) {
+            for (const [key2, value2] of Object.entries(value)) {
+                el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
             }
         }
         el("body").classList.add("is-visible");

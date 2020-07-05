@@ -103,12 +103,12 @@
       </div>
     </header>
     <!-- Portfolio Section-->
-    <section class="page-section portfolio" id="portfolio">
+    <section class="page-section portfolio editable" id="portfolio">
       <div class="container">
         <!-- Portfolio Section Heading-->
         <h2
-          class="page-section-heading text-center text-uppercase text-secondary mb-0 cms-editable"
-          id="gallery-title"
+          class="page-section-heading text-center text-uppercase text-secondary mb-0"
+          data-name="title"
         >
           Portfolio
         </h2>
@@ -267,12 +267,15 @@
       </div>
     </section>
     <!-- About Section-->
-    <section class="page-section bg-primary text-white mb-0" id="about">
+    <section
+      class="page-section bg-primary text-white mb-0 editable"
+      id="about"
+    >
       <div class="container">
         <!-- About Section Heading-->
         <h2
-          class="page-section-heading text-center text-uppercase text-white cms-editable"
-          id="about-title"
+          class="page-section-heading text-center text-uppercase text-white"
+          data-name="title"
         >
           About
         </h2>
@@ -286,7 +289,7 @@
         </div>
         <!-- About Section Content-->
         <div class="row">
-          <div class="col-lg-4 ml-auto cms-editable" id="about-text-1">
+          <div class="col-lg-4 ml-auto" data-name="text">
             <p class="lead">
               Freelancer is a free bootstrap theme created by Start Bootstrap.
               The download includes the complete source files including HTML,
@@ -294,7 +297,7 @@
               customization.
             </p>
           </div>
-          <div class="col-lg-4 mr-auto cms-editable" id="about-text-2">
+          <div class="col-lg-4 mr-auto" data-name="text2">
             <p class="lead">
               You can create your own custom avatar for the masthead, change the
               icon in the dividers, and add your email address to the contact

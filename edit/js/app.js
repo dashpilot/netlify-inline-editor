@@ -262,6 +262,7 @@ function saveData(mypath, data) {
                         saveData(mypath);
                     });
                 } else {
+                    console.log(data);
                     return data;
                 }
             })

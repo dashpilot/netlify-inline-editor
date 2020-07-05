@@ -10,7 +10,7 @@ https://inline-editor.netlify.app/edit/
 After login, you'll be redirected to the main page, where you can edit the page by just clicking on the element you want to edit. Changes will be saved as json, and loaded when you refresh the page.
 
 ## Preview
-
+Just click on an element to edit it.
 ![Preview](edit/img/preview.jpg)
 
 ## Automatic Setup

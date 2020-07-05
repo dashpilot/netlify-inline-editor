@@ -90,7 +90,7 @@ function createWidget() {
       <input id="edit-link" type="text" class="form-control mt-3 editor" style="display: none;" placeholder="link">
       <div id="edit-text" class="pell editor"></div>
       </div>
-      <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin" id="spinner" style="display: none;"></i> &nbsp;Save</a></div>
+      <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin mr-2" id="spinner" style="display: none;"></i> Save</a></div>
     </div>`;
 
     document.querySelector(".ww-close").addEventListener("click", function() {

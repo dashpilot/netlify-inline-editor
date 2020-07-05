@@ -21,4 +21,4 @@ After login, you'll be redirected to the main page, where you can edit the page 
 
 ## How to make elements on a page editable
 
-To make an element editable via the CMS, just give it an id and a class of 'cms-editabe'. The CMS will automatically detect what kind of element it is, and show the appropriate input.
+To make an element editable via the CMS, just give it an `id` and a class of `cms-editabe`. The CMS will automatically detect what kind of element it is, and show the appropriate input.

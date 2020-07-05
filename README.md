@@ -30,12 +30,14 @@ Clicking the button below will automatically clone this repo to your own Github 
 
 ## How to make elements on a page editable
 
-To make an element editable via the CMS, just give the parent a class of `editable` and an `id` and the element itself a `data-name` attribute. For example:
+To make an element editable via the CMS, just give the parent a class of `editable` and an `id` and the element itself a `data-name` attribute. The parent doesn't have to be a direct parent. For example:
 
 ```
 <section class="editable" id="my-first-section">
-    <h1 data-name="title">Hello World</h1>
-    <small data-name="subtitle">This is a subtitle</small>
+    <div class="row">
+        <h1 data-name="title">Hello World</h1>
+        <small data-name="subtitle">This is a subtitle</small>
+    </div>
 </section>
 ```
 
@@ -43,7 +45,7 @@ In this example, the parent section has a class of `editable` and an id of "my-f
 
 ```
 {
-"my-first-section":
+  "my-first-section":
     {
         "title":"Hello World",
         "subtitle":"This is a subtitle"

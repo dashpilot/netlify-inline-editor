@@ -108,6 +108,7 @@ function createWidget() {
       <div id="edit-image" class="editor">
         <input type="file" id="select">
       </div>
+      <a onclick="logout();">log out</a>
       </div>
       <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin mr-2" id="spinner" style="display: none;"></i> Save</a></div>
     </div>`;
@@ -325,6 +326,10 @@ function saveData(mypath, data, type) {
                 return error;
             });
     });
+}
+
+function logout() {
+    netlifyIdentity.logout();
 }
 
 /*

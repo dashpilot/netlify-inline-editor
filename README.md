@@ -1,4 +1,4 @@
-![on-page editing](https://img.shields.io/badge/on-page%20editing-brightgreen)
+![on-page editing](https://img.shields.io/badge/on%20page%20editing-brightgreen)
 ![vanilla javascript](https://img.shields.io/badge/vanilla-js-fadc60)
 
 # :pencil2: Netlify Inline Editor

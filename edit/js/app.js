@@ -14,6 +14,7 @@ function els(el) {
 fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
+        console.log(data);
         for (const [key, value] of Object.entries(data)) {
             for (const [key2, value2] of Object.entries(value)) {
                 if (key2 == "image") {

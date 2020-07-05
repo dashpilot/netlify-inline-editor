@@ -15,6 +15,7 @@ fetch("index.json")
     .then((response) => response.json())
     .then(function(data) {
         console.log(data);
+        console.log("fetched from Netlify");
         for (const [key, value] of Object.entries(data)) {
             for (const [key2, value2] of Object.entries(value)) {
                 if (key2 == "image") {
@@ -214,7 +215,7 @@ function getJson(mypath = "") {
             } else {
                 let content = JSON.parse(atob(data.content));
 
-                console.log(content);
+                console.log("fetched from Github");
 
                 for (const [key, value] of Object.entries(content)) {
                     for (const [key2, value2] of Object.entries(value)) {
@@ -227,7 +228,6 @@ function getJson(mypath = "") {
                 }
                 el("body").classList.add("is-visible");
 
-                console.log(data);
                 return data;
             }
         })

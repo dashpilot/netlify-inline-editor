@@ -171,12 +171,12 @@ function createWidget() {
                 reader.onloadend = function() {
                     var base64data = reader.result;
                     // console.log(base64data);
-                    document.querySelector(".current-item").src = base64data;
+                    //document.querySelector(".current-item").src = base64data;
                     let name = Math.random().toString(36).substr(2, 9) + ".jpg";
                     let path = "img/" + name;
                     var data = base64data.replace(/^data:image\/\w+;base64,/, "");
                     saveData(path, data);
-                    poll(path);
+                    poll(path, "image");
                 };
             }
         );
@@ -266,7 +266,8 @@ function saveData(mypath, data) {
     });
 }
 
-function poll(path) {
+function poll(path, type) {
+    el("#spinner").style.display = "inline-block";
     window.setTimeout(function() {
         let result = doesFileExist(path);
         if (!result) {
@@ -274,6 +275,10 @@ function poll(path) {
             poll(path);
         } else {
             console.log("ok");
+            el("#spinner").style.display = "none";
+            if (type == "image") {
+                el(".current-item").src = path;
+            }
         }
     }, 2000);
 }

@@ -1,4 +1,4 @@
-# netlify-inline-editor
+# :pencil2: netlify-inline-editor
 
 On-page editor for static sites that saves to github via Netlify Identity. Written in vanilla js.
 

@@ -140,7 +140,7 @@ function createWidget() {
             els("#" + id + " [data-name]").forEach(function(item2) {
                 let name = item2.getAttribute("data-name");
                 if (name == "image") {
-                    data[id][name] = item2.src;
+                    data[id][name] = item2.getAttribute("data-src"); // use the path instead of the source
                 } else {
                     data[id][name] = item2.innerHTML.replace(/  |\r\n|\n|\r/gm, "");
                 }
@@ -170,13 +170,19 @@ function createWidget() {
                 reader.readAsDataURL(blob);
                 reader.onloadend = function() {
                     var base64data = reader.result;
-                    // console.log(base64data);
-                    //document.querySelector(".current-item").src = base64data;
+
                     let name = Math.random().toString(36).substr(2, 9) + ".jpg";
                     let path = "img/" + name;
+
+                    // first, temporarily show the base64 data
+                    document.querySelector(".current-item").src = base64data;
+                    // store the final path in data-src
+                    document
+                        .querySelector(".current-item")
+                        .setAttribute("data-src", path);
+                    // save the image in the background
                     var data = base64data.replace(/^data:image\/\w+;base64,/, "");
                     saveData(path, data);
-                    poll(path, "image");
                 };
             }
         );
@@ -266,6 +272,7 @@ function saveData(mypath, data) {
     });
 }
 
+/*
 function poll(path, type) {
     el("#spinner").style.display = "inline-block";
     window.setTimeout(function() {
@@ -294,3 +301,4 @@ function doesFileExist(urlToFile) {
         return true;
     }
 }
+*/

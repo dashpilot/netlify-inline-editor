@@ -121,7 +121,7 @@ function createWidget() {
     el("#save").addEventListener("click", function(item) {
         el("#spinner").style.display = "block";
 
-        data = [];
+        data = {};
         els(".editable").forEach(function(item) {
             let id = item.id;
             let type = item.tagName.toLowerCase();

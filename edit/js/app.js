@@ -3,14 +3,6 @@ const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 const anchors = ["a"];
 
-function el(el) {
-    return document.querySelector(el);
-}
-
-function els(el) {
-    return document.querySelectorAll(el);
-}
-
 getUser().then(function(myuser) {
     if (myuser === null) {
         // not logged in
@@ -40,8 +32,6 @@ getUser().then(function(myuser) {
 });
 
 netlifyIdentity.on("login", function(user) {
-    console.log(user);
-
     createWidget();
     start();
 });
@@ -114,7 +104,7 @@ function createWidget() {
       <div id="edit-image" class="editor">
         <input type="file" id="select">
       </div>
-      <a onclick="logout();">log out</a>
+      <button class="btn btn-outline-dark" onclick="logout();">log out</button>
       </div>
       <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin mr-2" id="spinner" style="display: none;"></i> Save</a></div>
     </div>`;
@@ -341,6 +331,16 @@ function logout() {
 async function getUser() {
     const user = await netlifyIdentity.currentUser();
     return user;
+}
+
+/* helpers */
+
+function el(el) {
+    return document.querySelector(el);
+}
+
+function els(el) {
+    return document.querySelectorAll(el);
 }
 
 /*

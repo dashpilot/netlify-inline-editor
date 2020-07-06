@@ -11,9 +11,9 @@ function els(el) {
     return document.querySelectorAll(el);
 }
 
-if (getUser()) {
-    getJson("index.json");
-} else {
+console.log("output:" + getUser());
+
+if (!getUser()) {
     // not logged in
     fetch("index.json")
         .then((response) => response.json())
@@ -35,6 +35,8 @@ if (getUser()) {
             el("body").classList.add("is-visible");
             console.log("error: " + error);
         });
+} else {
+    getJson("index.json");
 }
 
 netlifyIdentity.on("login", function(user) {
@@ -338,9 +340,7 @@ function logout() {
 
 async function getUser() {
     let user = await netlifyIdentity.currentUser();
-
     if (user === null) {
-        console.log("null");
         return false;
     } else {
         return user;

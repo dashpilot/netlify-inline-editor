@@ -143,19 +143,6 @@
     margin-bottom: 75px;
 }
 
-[data-name] {
-    cursor: pointer;
-    border: 1px solid transparent;
-}
-
-[data-name]:hover {
-    border: 1px solid lightblue;
-}
-
-.current-item {
-    border: 1px solid lightblue;
-}
-
 #widget p {
     border: none;
 }

@@ -109,6 +109,20 @@ function createWidget() {
       <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin mr-2" id="spinner" style="display: none;"></i> Save</a></div>
     </div>`;
 
+    document.head.innerHTML += `
+    <style>
+    [data-name] {
+        cursor: pointer;
+        border: 1px solid transparent;
+    }
+    [data-name]:hover {
+        border: 1px solid lightblue;
+    }
+    .current-item {
+        border: 1px solid lightblue;
+    }
+    </style>`;
+
     document.querySelector(".ww-close").addEventListener("click", function() {
         document.querySelector("#widget").classList.add("closing");
     });
@@ -326,6 +340,7 @@ function saveData(mypath, data, type) {
 
 function logout() {
     netlifyIdentity.logout();
+    window.location.reload();
 }
 
 async function getUser() {

@@ -17,15 +17,15 @@ fetch("index.json")
 
 netlifyIdentity.on("login", function(user) {
     /*
-      getData("index.json").then(function(result) {
-          if (result.ok) {
-              let data = JSON.parse(atob(result.content));
-              renderPage(data);
-          } else {
-              console.log("error: " + result.error);
-          }
-      });
-      */
+                getData("index.json").then(function(result) {
+                    if (result.ok) {
+                        let data = JSON.parse(atob(result.content));
+                        renderPage(data);
+                    } else {
+                        console.log("error: " + result.error);
+                    }
+                });
+                */
 
     createWidget();
     start();
@@ -46,6 +46,7 @@ function renderPage(data) {
 }
 
 function start() {
+    console.log("start called");
     els("[data-name]").forEach(function(item) {
         item.addEventListener("click", function() {
             el("#widget").classList.remove("closing");
@@ -70,7 +71,7 @@ function start() {
                 el("#edit-title").value = val;
                 el("#edit-title").style.display = "block";
                 el("#edit-title").addEventListener("keyup", function() {
-                    item.innerText = el("#edit-title").value;
+                    el(".current-item").innerText = el("#edit-title").value;
                 });
             } else if (blocks.includes(type)) {
                 let val = item.innerHTML;
@@ -86,10 +87,10 @@ function start() {
                 el("#edit-title").style.display = "block";
                 el("#edit-link").style.display = "block";
                 el("#edit-title").addEventListener("keyup", function() {
-                    item.innerText = el("#edit-title").value;
+                    el(".current-item").innerText = el("#edit-title").value;
                 });
                 el("#edit-link").addEventListener("keyup", function() {
-                    item.href = el("#edit-link").value;
+                    el(".current-item").href = el("#edit-link").value;
                 });
             }
         });

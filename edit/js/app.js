@@ -174,10 +174,6 @@ function createWidget() {
         console.log(data);
 
         saveData("index.json", btoa(JSON.stringify(data)), "json");
-
-        window.setTimeout(function() {
-            el("#spinner").style.display = "none";
-        }, 2000);
     });
 
     document.getElementById("select").onchange = function(evt) {
@@ -293,11 +289,14 @@ function saveData(mypath, data, type) {
                         document.querySelector(".current-item").src = url; // store the raw URL, so we don't have to wait for Netlify
                     }
 
+                    el("#spinner").style.display = "none";
+
                     return data;
                 }
             })
             .catch((error) => {
                 console.log("error: ", error);
+                el("#spinner").style.display = "none";
                 return error;
             });
     });

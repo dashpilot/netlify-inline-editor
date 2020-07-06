@@ -17,15 +17,15 @@ fetch("index.json")
 
 netlifyIdentity.on("login", function(user) {
     /*
-                getData("index.json").then(function(result) {
-                    if (result.ok) {
-                        let data = JSON.parse(atob(result.content));
-                        renderPage(data);
-                    } else {
-                        console.log("error: " + result.error);
-                    }
-                });
-                */
+                    getData("index.json").then(function(result) {
+                        if (result.ok) {
+                            let data = JSON.parse(atob(result.content));
+                            renderPage(data);
+                        } else {
+                            console.log("error: " + result.error);
+                        }
+                    });
+                    */
 
     createWidget();
     start();
@@ -323,34 +323,3 @@ function el(el) {
 function els(el) {
     return document.querySelectorAll(el);
 }
-
-/*
-function poll(path, type) {
-    el("#spinner").style.display = "inline-block";
-    window.setTimeout(function() {
-        let result = doesFileExist(path);
-        if (!result) {
-            console.log("not found yet");
-            poll(path);
-        } else {
-            console.log("ok");
-            el("#spinner").style.display = "none";
-            if (type == "image") {
-                el(".current-item").src = path;
-            }
-        }
-    }, 2000);
-}
-
-function doesFileExist(urlToFile) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("HEAD", urlToFile, false);
-    xhr.send();
-
-    if (xhr.status == "404") {
-        return false;
-    } else {
-        return true;
-    }
-}
-*/

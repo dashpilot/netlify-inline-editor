@@ -18,6 +18,13 @@
     height: 160px;
     background-image: url(img/mountain1.jpg);
     background-size: cover;
+    position: relative;
+}
+
+#logout {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
 
 .ww-content {

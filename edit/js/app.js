@@ -36,8 +36,6 @@ netlifyIdentity.on("login", function(user) {
     start();
 });
 
-netlifyIdentity.on("logout", () => console.log("Logged out"));
-
 function start() {
     els("[data-name]").forEach(function(item) {
         item.addEventListener("click", function() {
@@ -92,7 +90,10 @@ function start() {
 function createWidget() {
     document.body.innerHTML += `
     <div id="widget" class="ww-widget" spellCheck="false">
-      <div class="ww-header"><div class="ww-close">&times;</div></div>
+      <div class="ww-header">
+      <button class="btn btn-outline-light" onclick="logout();" id="logout">Log Out</button>
+      <div class="ww-close">&times;</div>
+      </div>
       <div class="ww-content" id="widget-content">
      <div id="widget-welcome">
      <h2 class="exclude">Welcome</h2><p class="exclude">Click on an element on the page to edit it.</p>
@@ -104,7 +105,7 @@ function createWidget() {
       <div id="edit-image" class="editor">
         <input type="file" id="select">
       </div>
-      <button class="btn btn-outline-dark" onclick="logout();">log out</button>
+ 
       </div>
       <div class="ww-footer"><a class="ww-button ww-button-close" id="save"><i class="fa fa-spinner fa-spin mr-2" id="spinner" style="display: none;"></i> Save</a></div>
     </div>`;

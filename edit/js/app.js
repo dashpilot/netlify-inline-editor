@@ -244,6 +244,7 @@ function getJson(mypath = "") {
         .catch((error) => {
             console.log("not found on Github");
             el("body").classList.add("is-visible");
+            console.log(error);
             return error;
         });
 }
@@ -339,7 +340,9 @@ function saveData(mypath, data, type) {
 
 function logout() {
     netlifyIdentity.logout();
-    window.location.reload();
+    window.setTimeout(function() {
+        window.location.reload();
+    }, 1000);
 }
 
 /* helpers */

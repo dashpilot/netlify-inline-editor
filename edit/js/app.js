@@ -3,42 +3,31 @@ const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 const anchors = ["a"];
 
-let init = 0;
-
-netlifyIdentity.on("init", function(user) {
-    init = init + 1; // workaround for the fact that init gets called twice
-    console.log(init);
-    if (init == 2) {
-        if (user === null) {
-            // not logged in
-            fetch("index.json")
-                .then((response) => response.json())
-                .then(function(data) {
-                    console.log(data);
-                    console.log("fetched from Netlify");
-                    for (const [key, value] of Object.entries(data)) {
-                        for (const [key2, value2] of Object.entries(value)) {
-                            if (key2 == "image") {
-                                el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                            } else {
-                                el(
-                                    "#" + key + " [data-name='" + key2 + "']"
-                                ).innerHTML = value2;
-                            }
-                        }
-                    }
-                    el("body").classList.add("is-visible");
-                })
-                .catch((error) => {
-                    el("body").classList.add("is-visible");
-                    console.log("error: " + error);
-                });
-        } else {
-            getJson("index.json");
-            createWidget();
-            start();
+fetch("index.json")
+    .then((response) => response.json())
+    .then(function(data) {
+        console.log(data);
+        console.log("fetched from Netlify");
+        for (const [key, value] of Object.entries(data)) {
+            for (const [key2, value2] of Object.entries(value)) {
+                if (key2 == "image") {
+                    el("#" + key + " [data-name='" + key2 + "']").src = value2;
+                } else {
+                    el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+                }
+            }
         }
-    }
+        el("body").classList.add("is-visible");
+    })
+    .catch((error) => {
+        el("body").classList.add("is-visible");
+        console.log("error: " + error);
+    });
+
+netlifyIdentity.on("login", function(user) {
+    getJson("index.json");
+    createWidget();
+    start();
 });
 
 function start() {
@@ -211,6 +200,8 @@ function createWidget() {
 function getJson(mypath = "") {
     let user = netlifyIdentity.currentUser();
     let token = user.token.access_token;
+
+    el("body").classList.remove("is-visible");
 
     var url = "/.netlify/git/github/contents/" + mypath;
     var bearer = "Bearer " + token;

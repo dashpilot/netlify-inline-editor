@@ -7,7 +7,7 @@ let init = 0;
 
 netlifyIdentity.on("init", function(user) {
     init = init + 1; // workaround for the fact that init gets called twice
-
+    console.log(init);
     if (init == 2) {
         if (user === null) {
             // not logged in

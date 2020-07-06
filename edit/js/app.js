@@ -230,6 +230,8 @@ async function getData(mypath = "") {
                     getData(mypath);
                 });
             } else {
+                console.log("fetched from Github");
+
                 data.ok = true;
                 return data;
             }

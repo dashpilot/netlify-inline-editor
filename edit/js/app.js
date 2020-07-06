@@ -3,37 +3,42 @@ const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 const anchors = ["a"];
 
-getUser().then(function(myuser) {
-    if (myuser === null) {
-        // not logged in
-        fetch("index.json")
-            .then((response) => response.json())
-            .then(function(data) {
-                console.log(data);
-                console.log("fetched from Netlify");
-                for (const [key, value] of Object.entries(data)) {
-                    for (const [key2, value2] of Object.entries(value)) {
-                        if (key2 == "image") {
-                            el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                        } else {
-                            el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+let init = 0;
+
+netlifyIdentity.on("init", function(user) {
+    init = init + 1; // workaround for the fact that init gets called twice
+
+    if (init == 2) {
+        if (user === null) {
+            // not logged in
+            fetch("index.json")
+                .then((response) => response.json())
+                .then(function(data) {
+                    console.log(data);
+                    console.log("fetched from Netlify");
+                    for (const [key, value] of Object.entries(data)) {
+                        for (const [key2, value2] of Object.entries(value)) {
+                            if (key2 == "image") {
+                                el("#" + key + " [data-name='" + key2 + "']").src = value2;
+                            } else {
+                                el(
+                                    "#" + key + " [data-name='" + key2 + "']"
+                                ).innerHTML = value2;
+                            }
                         }
                     }
-                }
-                el("body").classList.add("is-visible");
-            })
-            .catch((error) => {
-                el("body").classList.add("is-visible");
-                console.log("error: " + error);
-            });
-    } else {
-        getJson("index.json");
+                    el("body").classList.add("is-visible");
+                })
+                .catch((error) => {
+                    el("body").classList.add("is-visible");
+                    console.log("error: " + error);
+                });
+        } else {
+            getJson("index.json");
+            createWidget();
+            start();
+        }
     }
-});
-
-netlifyIdentity.on("login", function(user) {
-    createWidget();
-    start();
 });
 
 function start() {
@@ -246,6 +251,8 @@ function getJson(mypath = "") {
             }
         })
         .catch((error) => {
+            console.log("not found on Github");
+            el("body").classList.add("is-visible");
             return error;
         });
 }
@@ -342,11 +349,6 @@ function saveData(mypath, data, type) {
 function logout() {
     netlifyIdentity.logout();
     window.location.reload();
-}
-
-async function getUser() {
-    const user = await netlifyIdentity.currentUser();
-    return user;
 }
 
 /* helpers */

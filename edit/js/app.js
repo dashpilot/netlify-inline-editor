@@ -16,14 +16,16 @@ fetch("index.json")
     });
 
 netlifyIdentity.on("login", function(user) {
-    getData("index.json").then(function(result) {
-        if (result.ok) {
-            let data = JSON.parse(atob(result.content));
-            renderPage(data);
-        } else {
-            console.log("error: " + result.error);
-        }
-    });
+    /*
+      getData("index.json").then(function(result) {
+          if (result.ok) {
+              let data = JSON.parse(atob(result.content));
+              renderPage(data);
+          } else {
+              console.log("error: " + result.error);
+          }
+      });
+      */
 
     createWidget();
     start();

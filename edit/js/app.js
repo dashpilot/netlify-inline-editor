@@ -13,7 +13,7 @@ function els(el) {
 
 console.log("output:" + getUser());
 
-if (!getUser()) {
+if (getUser() === null) {
     // not logged in
     fetch("index.json")
         .then((response) => response.json())
@@ -339,12 +339,8 @@ function logout() {
 }
 
 async function getUser() {
-    let user = await netlifyIdentity.currentUser();
-    if (user === null) {
-        return false;
-    } else {
-        return user;
-    }
+    const user = await netlifyIdentity.currentUser();
+    return user;
 }
 
 /*

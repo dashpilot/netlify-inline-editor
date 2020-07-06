@@ -201,5 +201,5 @@
 
 .toggle-content.is-visible {
     opacity: 1;
-    transition: opacity 750ms ease-in-out;
+    transition: opacity 1500ms ease-in-out;
 }

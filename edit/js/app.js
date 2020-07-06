@@ -8,16 +8,7 @@ fetch("index.json")
     .then(function(data) {
         console.log(data);
         console.log("fetched from Netlify");
-        for (const [key, value] of Object.entries(data)) {
-            for (const [key2, value2] of Object.entries(value)) {
-                if (key2 == "image") {
-                    el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                } else {
-                    el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
-                }
-            }
-        }
-        el("body").classList.add("is-visible");
+        renderPage(data);
     })
     .catch((error) => {
         el("body").classList.add("is-visible");
@@ -25,10 +16,32 @@ fetch("index.json")
     });
 
 netlifyIdentity.on("login", function(user) {
-    getJson("index.json");
+    getData("index.json").then(function(result) {
+        if (result.ok) {
+            let data = JSON.parse(atob(result.content));
+            renderPage(data);
+        } else {
+            console.log("error: " + result.error);
+        }
+    });
+
     createWidget();
     start();
 });
+
+function renderPage(data) {
+    for (const [key, value] of Object.entries(data)) {
+        for (const [key2, value2] of Object.entries(value)) {
+            if (key2 == "image") {
+                el("#" + key + " [data-name='" + key2 + "']").src = value2;
+            } else {
+                el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
+            }
+        }
+    }
+
+    el("body").classList.add("is-visible");
+}
 
 function start() {
     els("[data-name]").forEach(function(item) {
@@ -197,15 +210,13 @@ function createWidget() {
     };
 }
 
-function getJson(mypath = "") {
+async function getData(mypath = "") {
     let user = netlifyIdentity.currentUser();
     let token = user.token.access_token;
 
-    el("body").classList.remove("is-visible");
-
     var url = "/.netlify/git/github/contents/" + mypath;
     var bearer = "Bearer " + token;
-    return fetch(url, {
+    return await fetch(url, {
             method: "GET",
             withCredentials: true,
             credentials: "include",
@@ -223,61 +234,15 @@ function getJson(mypath = "") {
                     getData(mypath);
                 });
             } else {
-                let content = JSON.parse(atob(data.content));
-
-                console.log("fetched from Github");
-
-                for (const [key, value] of Object.entries(content)) {
-                    for (const [key2, value2] of Object.entries(value)) {
-                        if (key2 == "image") {
-                            el("#" + key + " [data-name='" + key2 + "']").src = value2;
-                        } else {
-                            el("#" + key + " [data-name='" + key2 + "']").innerHTML = value2;
-                        }
-                    }
-                }
-                el("body").classList.add("is-visible");
-
+                data.ok = true;
                 return data;
             }
         })
         .catch((error) => {
-            console.log("not found on Github");
-            el("body").classList.add("is-visible");
-            console.log(error);
-            return error;
-        });
-}
-
-function getData(mypath = "") {
-    let user = netlifyIdentity.currentUser();
-    let token = user.token.access_token;
-
-    var url = "/.netlify/git/github/contents/" + mypath;
-    var bearer = "Bearer " + token;
-    return fetch(url, {
-            method: "GET",
-            withCredentials: true,
-            credentials: "include",
-            headers: {
-                Authorization: bearer,
-                "Content-Type": "application/json",
-            },
-        })
-        .then((resp) => {
-            return resp.json();
-        })
-        .then((data) => {
-            if (data.code == 400) {
-                netlifyIdentity.refresh().then(function(token) {
-                    getData(mypath);
-                });
-            } else {
-                return data;
-            }
-        })
-        .catch((error) => {
-            return error;
+            let status = {};
+            status.ok = false;
+            status.error = error;
+            return status;
         });
 }
 

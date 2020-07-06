@@ -338,6 +338,7 @@ function logout() {
 
 async function getUser() {
     let user = await netlifyIdentity.currentUser();
+    console.log(user);
     if (user === null) {
         return false;
     } else {

@@ -148,6 +148,9 @@ function createWidget() {
 
     el("#save").addEventListener("click", function(item) {
         data = {};
+
+        el("#spinner").style.display = "inline-block";
+
         els(".editable").forEach(function(item) {
             let id = item.id;
             let type = item.tagName.toLowerCase();
@@ -202,8 +205,6 @@ async function saveData(filename, data, type) {
     const token = await netlifyIdentity.currentUser().jwt();
     let user = await netlifyIdentity.currentUser();
 
-    el("#spinner").style.display = "inline-block";
-
     const response = await fetch("/.netlify/functions/save", {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -223,11 +224,12 @@ async function saveData(filename, data, type) {
                 document.querySelector(".current-item").src =
                     "https://inline-editor.ams3.digitaloceanspaces.com/2178df7d-3d96-49f3-a534-10d1bcdaddad/" +
                     res;
+                el("#save").click();
             }
 
             window.setTimeout(function() {
                 el("#spinner").style.display = "none";
-            }, 2000);
+            }, 1000);
         });
 }
 

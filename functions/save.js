@@ -30,7 +30,7 @@ exports.handler = function(event, context, callback) {
             var params = {
                 Body: JSON.stringify(jsondata.data),
                 Bucket: process.env.S3_BUCKET,
-                Key: user.sub + "/" + filename,
+                Key: filename,
                 ContentType: "application/json",
                 ACL: "public-read",
             };
@@ -55,7 +55,7 @@ exports.handler = function(event, context, callback) {
             var params = {
                 Body: base64data,
                 Bucket: process.env.S3_BUCKET,
-                Key: user.sub + "/" + filename,
+                Key: filename,
                 ContentEncoding: "base64",
                 ContentType: `image/${imgtype}`,
                 ACL: "public-read",

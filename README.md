@@ -31,6 +31,7 @@ Create the following environment variables:
 `S3_KEY`: your S3/Spaces key\
 `S3_SECRET`: your S3/Spaces secret\
 `S3_BUCKET`: your S3/Spaces bucket\
+`S3_URL`: full URL to your S3/Spaces bucket, WITH trailing slash (e.g. https://mybucket.ams3.digitaloceanspaces.com/)\
 
 ## How to make elements on a page editable
 

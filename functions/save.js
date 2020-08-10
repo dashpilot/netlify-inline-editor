@@ -26,7 +26,7 @@ exports.handler = function(event, context, callback) {
         });
 
         if (jsondata.type == "json") {
-            const filename = "data.json";
+            const filename = jsondata.filename;
             var params = {
                 Body: JSON.stringify(jsondata.data),
                 Bucket: process.env.S3_BUCKET,
@@ -51,12 +51,7 @@ exports.handler = function(event, context, callback) {
                 "base64"
             );
             let imgtype = base64.split(";")[0].split("/")[1];
-            const filename =
-                "img/" +
-                Math.random().toString(36).substring(2, 15) +
-                Math.random().toString(36).substring(2, 15) +
-                "." +
-                imgtype;
+            const filename = jsondata.filename;
             var params = {
                 Body: base64data,
                 Bucket: process.env.S3_BUCKET,

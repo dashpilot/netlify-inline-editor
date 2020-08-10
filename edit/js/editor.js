@@ -167,7 +167,7 @@ function createWidget() {
 
         console.log(data);
 
-        saveData(data, "json");
+        saveData("data.json", data, "json");
     });
 
     document.getElementById("select").onchange = function(evt) {
@@ -193,14 +193,14 @@ function createWidget() {
 
                     // save the image
                     var data = base64data;
-                    saveData(data, "image");
+                    saveData(name, data, "image");
                 };
             }
         );
     };
 }
 
-async function saveData(data, type) {
+async function saveData(filename, data, type) {
     const token = await netlifyIdentity.currentUser().jwt();
     let user = await netlifyIdentity.currentUser();
 
@@ -210,6 +210,7 @@ async function saveData(data, type) {
             },
             method: "post",
             body: JSON.stringify({
+                filename: filename,
                 data: data,
                 type: type,
             }),
@@ -217,6 +218,16 @@ async function saveData(data, type) {
         .then((response) => response.text())
         .then(function(res) {
             console.log(res);
+
+            if (res.includes("img/")) {
+                document
+                    .querySelector(".current-item")
+                    .src(
+                        "https://inline-editor.ams3.digitaloceanspaces.com/2178df7d-3d96-49f3-a534-10d1bcdaddad/" +
+                        res
+                    );
+            }
+
             window.setTimeout(function() {
                 el("#spinner").style.display = "none";
             }, 2000);

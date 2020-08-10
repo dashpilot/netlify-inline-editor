@@ -193,7 +193,7 @@ function createWidget() {
 
                     // save the image
                     var data = base64data;
-                    saveData(name, data, "image");
+                    saveData(path, data, "image");
                 };
             }
         );

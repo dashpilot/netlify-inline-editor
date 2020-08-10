@@ -3,9 +3,7 @@ const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 const anchors = ["a"];
 
-fetch(
-        "https://f003.backblazeb2.com/file/blognote/2178df7d-3d96-49f3-a534-10d1bcdaddad/data.json"
-    )
+fetch(s3_url + "data.json")
     .then((response) => response.json())
     .then(function(data) {
         console.log(data);
@@ -221,9 +219,7 @@ async function saveData(filename, data, type) {
             console.log(res);
 
             if (res.includes("img/")) {
-                document.querySelector(".current-item").src =
-                    "https://f003.backblazeb2.com/file/blognote/2178df7d-3d96-49f3-a534-10d1bcdaddad/" +
-                    res;
+                document.querySelector(".current-item").src = s3_url + res;
                 el("#save").click();
             } else {
                 window.setTimeout(function() {

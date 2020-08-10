@@ -3,7 +3,9 @@ const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 const anchors = ["a"];
 
-fetch("https://inline-editor.ams3.digitaloceanspaces.com/data.json")
+fetch(
+        "https://inline-editor.ams3.digitaloceanspaces.com/2178df7d-3d96-49f3-a534-10d1bcdaddad/data.json"
+    )
     .then((response) => response.json())
     .then(function(data) {
         console.log(data);
@@ -196,20 +198,6 @@ function createWidget() {
             }
         );
     };
-}
-
-async function getData(mypath = "") {
-    fetch("https://inline-editor.ams3.digitaloceanspaces.com/data.json")
-        .then((response) => response.json())
-        .then(function(data) {
-            console.log(data);
-            console.log("fetched from Netlify");
-            return data;
-        })
-        .catch((error) => {
-            el("body").classList.add("is-visible");
-            console.log("error: " + error);
-        });
 }
 
 async function saveData(data, type) {

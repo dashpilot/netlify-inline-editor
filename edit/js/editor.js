@@ -192,8 +192,8 @@ function createWidget() {
                     //document.querySelector(".current-item").src = base64data;
 
                     // save the image
-                    var data = base64data.replace(/^data:image\/\w+;base64,/, "");
-                    saveData(path, data, "image");
+                    var data = base64data;
+                    saveData(data, "image");
                 };
             }
         );

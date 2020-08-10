@@ -165,7 +165,7 @@ function createWidget() {
 
         console.log(data);
 
-        saveData("index.json", btoa(JSON.stringify(data)), "json");
+        saveData(JSON.stringify(data), "json");
     });
 
     document.getElementById("select").onchange = function(evt) {

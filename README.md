@@ -15,18 +15,22 @@ After login, you'll be redirected to the main page, where you can edit the page 
 
 _Just click on an element (left) to edit it in the overlay (right)._
 
-## Automatic Setup
+## How to set up
 
-Clicking the button below will automatically clone this repo to your own Github account, create a new Netlify website and configure Netlify Identity and Git Gateway for you. After that you can log in using your Github email and password (or create a new user in Netlify).
+### 1. Clone this repo
+
+Clicking the button below will automatically clone this repo to your own Github account, create a new Netlify website and configure Netlify Identity.
 
 <a href="https://app.netlify.com/start/deploy?repository=https://github.com/dashpilot/netlify-inline-editor&stack=cms"><img src="https://www.netlify.com/img/deploy/button.svg" /></a>
 
-## Manual Setup
+### 2. In Netlify
 
-1. Clone this repo
-2. Set up a site on Netlify and enable Netlify Identity and Git Gateway
-3. Log in via /edit
-4. Start editing your page by clicking on the elements you want to edit.
+Create the following environment variables:
+
+`S3_ENDPOINT`: your S3/Spaces endpoint (e.g ams3.digitaloceanspaces.com)\
+`S3_KEY`: your S3/Spaces key\
+`S3_SECRET`: your S3/Spaces secret\
+`S3_BUCKET`: your S3/Spaces bucket\
 
 ## How to make elements on a page editable
 

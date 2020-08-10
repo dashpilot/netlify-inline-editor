@@ -3,7 +3,7 @@ const spans = ["h1", "h2", "h3", "h4", "h5", "span"];
 const blocks = ["div"];
 const anchors = ["a"];
 
-fetch("index.json")
+fetch("https://inline-editor.ams3.digitaloceanspaces.com/data.json")
     .then((response) => response.json())
     .then(function(data) {
         console.log(data);
@@ -16,17 +16,6 @@ fetch("index.json")
     });
 
 netlifyIdentity.on("login", function(user) {
-    /*
-                          getData("index.json").then(function(result) {
-                              if (result.ok) {
-                                  let data = JSON.parse(atob(result.content));
-                                  renderPage(data);
-                              } else {
-                                  console.log("error: " + result.error);
-                              }
-                          });
-                          */
-
     createWidget();
     start();
 });
@@ -210,43 +199,43 @@ function createWidget() {
 }
 
 async function getData(mypath = "") {
-    let user = netlifyIdentity.currentUser();
-    let token = user.token.access_token;
-
-    var url = "/.netlify/git/github/contents/" + mypath;
-    var bearer = "Bearer " + token;
-    return await fetch(url, {
-            method: "GET",
-            withCredentials: true,
-            credentials: "include",
-            headers: {
-                Authorization: bearer,
-                "Content-Type": "application/json",
-            },
-        })
-        .then((resp) => {
-            return resp.json();
-        })
-        .then((data) => {
-            if (data.code == 400) {
-                netlifyIdentity.refresh().then(function(token) {
-                    getData(mypath);
-                });
-            } else {
-                console.log("fetched from Github");
-
-                data.ok = true;
-                return data;
-            }
+    fetch("https://inline-editor.ams3.digitaloceanspaces.com/data.json")
+        .then((response) => response.json())
+        .then(function(data) {
+            console.log(data);
+            console.log("fetched from Netlify");
+            return data;
         })
         .catch((error) => {
-            let status = {};
-            status.ok = false;
-            status.error = error;
-            return status;
+            el("body").classList.add("is-visible");
+            console.log("error: " + error);
         });
 }
 
+async function saveData(data, type) {
+    const token = await netlifyIdentity.currentUser().jwt();
+    let user = await netlifyIdentity.currentUser();
+
+    const response = await fetch("/.netlify/functions/save", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            method: "post",
+            body: JSON.stringify({
+                data: data,
+                type: type,
+            }),
+        })
+        .then((response) => response.text())
+        .then(function(res) {
+            console.log(res);
+            window.setTimeout(function() {
+                el("#spinner").style.display = "none";
+            }, 2000);
+        });
+}
+
+/*
 function saveData(mypath, data, type) {
     getData(mypath).then(function(curfile) {
         let user = netlifyIdentity.currentUser();
@@ -308,6 +297,8 @@ function saveData(mypath, data, type) {
             });
     });
 }
+
+*/
 
 function logout() {
     netlifyIdentity.logout();

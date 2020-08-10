@@ -4,7 +4,7 @@ const blocks = ["div"];
 const anchors = ["a"];
 
 fetch(
-        "https://inline-editor.ams3.digitaloceanspaces.com/2178df7d-3d96-49f3-a534-10d1bcdaddad/data.json"
+        "https://f003.backblazeb2.com/file/blognote/2178df7d-3d96-49f3-a534-10d1bcdaddad/data.json"
     )
     .then((response) => response.json())
     .then(function(data) {
@@ -222,7 +222,7 @@ async function saveData(filename, data, type) {
 
             if (res.includes("img/")) {
                 document.querySelector(".current-item").src =
-                    "https://inline-editor.ams3.digitaloceanspaces.com/2178df7d-3d96-49f3-a534-10d1bcdaddad/" +
+                    "https://f003.backblazeb2.com/file/blognote/2178df7d-3d96-49f3-a534-10d1bcdaddad/" +
                     res;
                 el("#save").click();
             } else {

@@ -147,8 +147,6 @@ function createWidget() {
     });
 
     el("#save").addEventListener("click", function(item) {
-        el("#spinner").style.display = "inline-block";
-
         data = {};
         els(".editable").forEach(function(item) {
             let id = item.id;
@@ -204,6 +202,8 @@ async function saveData(filename, data, type) {
     const token = await netlifyIdentity.currentUser().jwt();
     let user = await netlifyIdentity.currentUser();
 
+    el("#spinner").style.display = "inline-block";
+
     const response = await fetch("/.netlify/functions/save", {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -220,12 +220,9 @@ async function saveData(filename, data, type) {
             console.log(res);
 
             if (res.includes("img/")) {
-                document
-                    .querySelector(".current-item")
-                    .src(
-                        "https://inline-editor.ams3.digitaloceanspaces.com/2178df7d-3d96-49f3-a534-10d1bcdaddad/" +
-                        res
-                    );
+                document.querySelector(".current-item").src =
+                    "https://inline-editor.ams3.digitaloceanspaces.com/2178df7d-3d96-49f3-a534-10d1bcdaddad/" +
+                    res;
             }
 
             window.setTimeout(function() {

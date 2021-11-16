@@ -17,7 +17,7 @@
     },
     "homepage": "https://github.com/dashpilot/netlify-inline-editor#readme",
     "dependencies": {
-        "aws-sdk": "^2.729.0",
+        "aws-sdk": "^2.814.0",
         "fs": "0.0.1-security"
     }
 }

@@ -1,23 +1,23 @@
 {
-    "name": "netlify-inline-editor",
-    "version": "1.0.0",
-    "description": "On-page editor for static sites that saves to Github via Netlify Identity. Written in vanilla js.",
-    "main": "index.js",
-    "scripts": {
-        "build": "node build.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/dashpilot/netlify-inline-editor.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/dashpilot/netlify-inline-editor/issues"
-    },
-    "homepage": "https://github.com/dashpilot/netlify-inline-editor#readme",
-    "dependencies": {
-        "aws-sdk": "^2.729.0",
-        "fs": "0.0.1-security"
-    }
+  "name": "netlify-inline-editor",
+  "version": "1.0.0",
+  "description": "On-page editor for static sites that saves to Github via Netlify Identity. Written in vanilla js.",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dashpilot/netlify-inline-editor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dashpilot/netlify-inline-editor/issues"
+  },
+  "homepage": "https://github.com/dashpilot/netlify-inline-editor#readme",
+  "dependencies": {
+    "aws-sdk": ">=2.814.0",
+    "fs": "0.0.1-security"
+  }
 }

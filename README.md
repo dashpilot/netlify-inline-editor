@@ -11,7 +11,7 @@ After login, you'll be redirected to the main page, where you can edit the page 
 
 ## Preview
 
-![Preview](edit/img/preview.jpg)
+![Preview](public/edit/img/preview.jpg)
 
 _Just click on an element (left) to edit it in the overlay (right)._
 
